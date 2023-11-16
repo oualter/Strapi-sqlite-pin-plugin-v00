@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "microfictions",
+  "info": {
+    "singularName": "microfiction",
+    "pluralName": "microfictions",
+    "displayName": "microfiction"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Titre": {
+      "type": "text"
+    },
+    "Texte": {
+      "type": "blocks"
+    }
+  }
+}
