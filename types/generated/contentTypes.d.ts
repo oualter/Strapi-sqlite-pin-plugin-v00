@@ -362,37 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiMicrofictionMicrofiction extends Schema.CollectionType {
-  collectionName: 'microfictions';
-  info: {
-    singularName: 'microfiction';
-    pluralName: 'microfictions';
-    displayName: 'microfiction';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Titre: Attribute.Text;
-    Texte: Attribute.Blocks;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::microfiction.microfiction',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::microfiction.microfiction',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -506,6 +475,50 @@ export interface PluginUploadFolder extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::upload.folder',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 50;
+      }>;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
       'oneToOne',
       'admin::user'
     > &
@@ -664,43 +677,125 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
+export interface ApiAProposAPropos extends Schema.SingleType {
+  collectionName: 'a_proposs';
   info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
+    singularName: 'a-propos';
+    pluralName: 'a-proposs';
+    displayName: 'A propos';
   };
   options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
+    draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
-    code: Attribute.String & Attribute.Unique;
+    Titre: Attribute.String;
+    Contenu: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::a-propos.a-propos',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::a-propos.a-propos',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLeLivreLeLivre extends Schema.SingleType {
+  collectionName: 'le_livres';
+  info: {
+    singularName: 'le-livre';
+    pluralName: 'le-livres';
+    displayName: 'Le livre';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titre: Attribute.String;
+    Contenu: Attribute.Blocks;
+    contenu_2: Attribute.Blocks;
+    Illustration: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::le-livre.le-livre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::le-livre.le-livre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMentionsLegalesMentionsLegales extends Schema.SingleType {
+  collectionName: 'mentions_legaless';
+  info: {
+    singularName: 'mentions-legales';
+    pluralName: 'mentions-legaless';
+    displayName: 'Mentions l\u00E9gales';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titre: Attribute.String;
+    Contenu: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mentions-legales.mentions-legales',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mentions-legales.mentions-legales',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMicrofictionMicrofiction extends Schema.CollectionType {
+  collectionName: 'microfictions';
+  info: {
+    singularName: 'microfiction';
+    pluralName: 'microfictions';
+    displayName: 'microfiction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titre: Attribute.Text;
+    Texte: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::microfiction.microfiction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::microfiction.microfiction',
       'oneToOne',
       'admin::user'
     > &
@@ -718,13 +813,16 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::microfiction.microfiction': ApiMicrofictionMicrofiction;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
+      'api::a-propos.a-propos': ApiAProposAPropos;
+      'api::le-livre.le-livre': ApiLeLivreLeLivre;
+      'api::mentions-legales.mentions-legales': ApiMentionsLegalesMentionsLegales;
+      'api::microfiction.microfiction': ApiMicrofictionMicrofiction;
     }
   }
 }
