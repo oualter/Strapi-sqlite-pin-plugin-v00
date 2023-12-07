@@ -4,18 +4,31 @@
   "info": {
     "singularName": "microfiction",
     "pluralName": "microfictions",
-    "displayName": "microfiction"
+    "displayName": "microfiction",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "Titre": {
-      "type": "text"
+    "Annee": {
+      "type": "integer"
     },
-    "Texte": {
+    "Mois": {
+      "type": "string"
+    },
+    "Jour_du_mois": {
+      "type": "integer"
+    },
+    "Heure": {
+      "type": "string"
+    },
+    "Texte_microfiction": {
       "type": "blocks"
+    },
+    "ordre_de_lecture": {
+      "type": "integer"
     }
   }
 }

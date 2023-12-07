@@ -778,13 +778,18 @@ export interface ApiMicrofictionMicrofiction extends Schema.CollectionType {
     singularName: 'microfiction';
     pluralName: 'microfictions';
     displayName: 'microfiction';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Titre: Attribute.Text;
-    Texte: Attribute.Blocks;
+    Annee: Attribute.Integer;
+    Mois: Attribute.String;
+    Jour_du_mois: Attribute.Integer;
+    Heure: Attribute.String;
+    Texte_microfiction: Attribute.Blocks;
+    ordre_de_lecture: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
