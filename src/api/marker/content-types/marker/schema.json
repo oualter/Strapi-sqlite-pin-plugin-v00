@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "markers",
+  "info": {
+    "singularName": "marker",
+    "pluralName": "markers",
+    "displayName": "marker",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "coordinates": {
+      "type": "json"
+    },
+    "date": {
+      "type": "date"
+    }
+  }
+}

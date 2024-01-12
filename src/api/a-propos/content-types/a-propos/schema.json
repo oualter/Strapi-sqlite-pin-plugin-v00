@@ -4,7 +4,8 @@
   "info": {
     "singularName": "a-propos",
     "pluralName": "a-proposs",
-    "displayName": "A propos"
+    "displayName": "A propos",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

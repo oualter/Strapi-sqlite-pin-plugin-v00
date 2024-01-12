@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "micro_fs",
+  "info": {
+    "singularName": "micro-f",
+    "pluralName": "micro-fs",
+    "displayName": "micro-f"
+  },
+  "options": {
+    "draftAndPublish": true,
+    "comment": ""
+  },
+  "attributes": {
+    "Annee": {
+      "type": "integer"
+    },
+    "Mois": {
+      "type": "string"
+    },
+    "Jour_du_mois": {
+      "type": "integer"
+    },
+    "Heure": {
+      "type": "integer"
+    },
+    "Texte_microfiction": {
+      "type": "richtext"
+    },
+    "ordre_de_lecture": {
+      "type": "integer"
+    },
+    "position": {
+      "type": "json"
+    }
+  }
+}

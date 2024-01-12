@@ -683,6 +683,7 @@ export interface ApiAProposAPropos extends Schema.SingleType {
     singularName: 'a-propos';
     pluralName: 'a-proposs';
     displayName: 'A propos';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -741,6 +742,37 @@ export interface ApiLeLivreLeLivre extends Schema.SingleType {
   };
 }
 
+export interface ApiMarkerMarker extends Schema.CollectionType {
+  collectionName: 'markers';
+  info: {
+    singularName: 'marker';
+    pluralName: 'markers';
+    displayName: 'marker';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    coordinates: Attribute.JSON;
+    date: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::marker.marker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::marker.marker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMentionsLegalesMentionsLegales extends Schema.SingleType {
   collectionName: 'mentions_legaless';
   info: {
@@ -772,6 +804,43 @@ export interface ApiMentionsLegalesMentionsLegales extends Schema.SingleType {
   };
 }
 
+export interface ApiMicroFMicroF extends Schema.CollectionType {
+  collectionName: 'micro_fs';
+  info: {
+    singularName: 'micro-f';
+    pluralName: 'micro-fs';
+    displayName: 'micro-f';
+  };
+  options: {
+    draftAndPublish: true;
+    comment: '';
+  };
+  attributes: {
+    Annee: Attribute.Integer;
+    Mois: Attribute.String;
+    Jour_du_mois: Attribute.Integer;
+    Heure: Attribute.Integer;
+    Texte_microfiction: Attribute.RichText;
+    ordre_de_lecture: Attribute.Integer;
+    position: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::micro-f.micro-f',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::micro-f.micro-f',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMicrofictionMicrofiction extends Schema.CollectionType {
   collectionName: 'microfictions';
   info: {
@@ -790,6 +859,10 @@ export interface ApiMicrofictionMicrofiction extends Schema.CollectionType {
     Heure: Attribute.String;
     Texte_microfiction: Attribute.Blocks;
     ordre_de_lecture: Attribute.Integer;
+    backgroundcolor: Attribute.String &
+      Attribute.CustomField<'plugin::color-picker.color'>;
+    pingenerator: Attribute.String &
+      Attribute.CustomField<'plugin::pingenerator.pingenerator'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -826,7 +899,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::a-propos.a-propos': ApiAProposAPropos;
       'api::le-livre.le-livre': ApiLeLivreLeLivre;
+      'api::marker.marker': ApiMarkerMarker;
       'api::mentions-legales.mentions-legales': ApiMentionsLegalesMentionsLegales;
+      'api::micro-f.micro-f': ApiMicroFMicroF;
       'api::microfiction.microfiction': ApiMicrofictionMicrofiction;
     }
   }

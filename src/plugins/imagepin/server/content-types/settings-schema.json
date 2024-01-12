@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "imagepin_settings",
+  "info": {
+    "singularName": "imagepin-settings",
+    "pluralName": "imagepin-settings",
+    "displayName": "imagepin-settings"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
+  "attributes": {
+    "image-to-pin-url": {
+      "type": "string"
+    }
+  }
+}

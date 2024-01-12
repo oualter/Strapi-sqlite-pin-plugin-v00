@@ -1,0 +1,21 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.image-placeholder{
+  /* outline:2px solid red; */
+  position:relative;
+}
+.image-placeholder img{
+  width: 100%;
+  height: auto;
+}
+.pin{
+  position: absolute;
+  background-color:red;
+  text-indent:-100000px;
+  border-radius:50%;
+}
