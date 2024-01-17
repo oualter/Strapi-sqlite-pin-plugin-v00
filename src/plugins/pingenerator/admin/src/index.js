@@ -23,32 +23,46 @@ export default {
       },
     });
 
-    app.createSettingSection(
-      {
-        id: pluginId,
-        intlLabel: {
-          id: `${pluginId}.plugin.name`,
-          defaultMessage: "Pin Generator",
-        },
+    // app.createSettingSection(
+    //   {
+    //     id: pluginId,
+    //     intlLabel: {
+    //       id: `${pluginId}.plugin.name`,
+    //       defaultMessage: "Pin Generator",
+    //     },
+    //   },
+    //   [
+    //     {
+    //       intlLabel: {
+    //         id: `${pluginId}.plugin.page.configuration`,
+    //         defaultMessage: "Configuration",
+    //       },
+    //       id: "settings.configuration",
+    //       to: `/settings/${pluginId}/configuration`,
+    //       Component: async () => {
+    //         return import("./pages/Settings/Configuration");
+    //       },
+    //     },
+    //   ]
+    // );
+
+    app.addMenuLink({
+      to: `/plugins/${pluginId}`,
+      icon: PluginIcon,
+      intlLabel: {
+        id: `${pluginId}.plugin.name`,
+        defaultMessage: "Pin-gen-narrator",
       },
-      [
-        {
-          intlLabel: {
-            id: `${pluginId}.plugin.page.configuration`,
-            defaultMessage: "Configuration",
-          },
-          id: "settings.configuration",
-          to: `/settings/${pluginId}/configuration`,
-          Component: async () => {
-            return import("./pages/Settings/Configuration");
-          },
-        },
-      ]
-    );
+      Component: async () => {
+        return import("./pages/Settings/Configuration");
+      },
+      permissions: [], // array of permissions (object), allow a user to access a plugin depending on its permissions
+    });
+
   },
   bootstrap(app) {
       // execute some bootstrap code
-      app.injectContentManagerComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
+      // app.injectContentManagerComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
     },
 
   async registerTrads({ locales }) {
