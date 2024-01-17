@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import {
-    Typography, 
-    DatePicker, 
-    Box,
+  Typography,
+  DatePicker,
+  Box,
   Button,
   ModalLayout,
   ModalBody,
@@ -13,11 +13,9 @@ import ImagePlaceHolder from "./../ImagePlaceHolder";
 // import getTrad from "../../utils/getTrad";
 import "./../../assets/css/imagepin.css";
 
-
 export default function Input() {
-
-    const [date, setDate] = useState();
-    const [isVisible, setIsVisible] = useState(false);
+  const [date, setDate] = useState();
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <>
@@ -29,7 +27,7 @@ export default function Input() {
       })} */}
         Epingler sur la carte
       </Button>
-      
+
       {isVisible && (
         <ModalLayout
           onClose={() => setIsVisible((prev) => !prev)}
@@ -46,7 +44,7 @@ export default function Input() {
             </Typography>
           </ModalHeader>
           <ModalBody>
-            <ImagePlaceHolder />          
+            <ImagePlaceHolder />
           </ModalBody>
           <ModalFooter
             startActions={

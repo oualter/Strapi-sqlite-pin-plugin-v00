@@ -46,6 +46,10 @@ export default {
       ]
     );
   },
+  bootstrap(app) {
+      // execute some bootstrap code
+      app.injectContentManagerComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
+    },
 
   async registerTrads({ locales }) {
     const importedTrads = await Promise.all(

@@ -10,15 +10,20 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "^4.15.5",
+    "@strapi/plugin-cloud": "^4.17.0",
     "@strapi/plugin-color-picker": "^4.17.0",
-    "@strapi/plugin-i18n": "^4.15.5",
-    "@strapi/plugin-users-permissions": "^4.15.5",
-    "@strapi/strapi": "^4.15.5",
+    "@strapi/plugin-graphql": "^4.17.0",
+    "@strapi/plugin-i18n": "^4.17.0",
+    "@strapi/plugin-upload": "^4.17.0",
+    "@strapi/plugin-users-permissions": "^4.17.0",
+    "@strapi/provider-upload-local": "^4.17.0",
+    "@strapi/strapi": "^4.17.0",
+    "@strapi/utils": "^4.17.0",
     "better-sqlite3": "8.6.0",
+    "fs-extra": "^11.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "5.3.4",
+    "react-router-dom": "^5.3.4",
     "styled-components": "5.3.3"
   },
   "author": {

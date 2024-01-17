@@ -1,0 +1,99 @@
+import { React, useState } from "react";
+import {
+  Typography,
+  DatePicker,
+  Box,
+  Breadcrumbs,
+  Crumb,
+  Button,
+  BaseHeaderLayout,
+  Field,
+  FieldLabel,
+  FieldHint,
+  FieldError,
+  FieldInput,
+  FieldAction,
+  Flex,
+  HeaderLayout,
+  Layout,
+} from "@strapi/design-system";
+import MediaLib from "../MediaLib";
+
+export default function Configuration() {
+  const [defaultImage, setDefaultImage] = useState();
+
+  const handleDisplayImg = (event) => {
+    console.log("allo");
+    if (event.target.files) {
+      // setDefaultImage(event.target.files[0].name.toString());
+      setDefaultImage(event.target.files[0]);
+      console.log("defaultImage => ", defaultImage);
+    }
+    // return './../../'+event.target.files[0].name
+  };
+
+  const handleUploadImage = (e) => {
+    e.preventDefault();
+
+    // const formData = new FormData();
+    // formData.append("files", fileInput.files[0]);
+
+    if (!defaultImage) {
+      return;
+    }
+    console.log("upload function");
+    // e.stopPropagation();
+    // 👇 Uploading the file using the fetch API to the server
+    const base_url = "http://localhost:1337";
+    // fetch(base_url + "/public/uploads/", {
+    fetch(base_url + "/api/upload/files/", {
+    // fetch(base_url + "/src/plugins/pingenerator/admin/src/assets/uploads/", {
+      method: "POST",
+      body: defaultImage,
+      // body: new FormData(e.target),
+      // 👇 Set headers manually for single file upload
+      headers: {
+        "Accept": "application/json",
+        "content-type": defaultImage.type,
+        // "content-length": `${defaultImage.size}`, // 👈 Headers need to be a string
+        // "Authorization": "Bearer YOUR_JWT_TOKEN",
+        "Authorization": "Bearer 77b2c87dbab4e1697bec244226fbd1b3",
+        // "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+  };
+
+  return (
+    <>
+      <Box background="neutral100">
+        <BaseHeaderLayout
+          title="Pin Generator"
+          subtitle={
+            <Breadcrumbs label="folders">
+              <Crumb>Pin generator</Crumb>
+              <Crumb>Règlages</Crumb>
+            </Breadcrumbs>
+          }
+          as="h2"
+        />
+      </Box>
+      <Box padding={8} background="neutral100">
+        <Field
+          name="imgfile"
+          hint="Charger l'image sur laquelle les microfictions seront épinglées"
+        >
+          <Flex direction="column" alignItems="flex-start" gap={1}>
+            <FieldLabel>Image</FieldLabel>
+            
+          </Flex>
+          {/* {defaultImage && (
+            <img src={`./../../assets/download/${defaultImage.name}`} />
+          )} */}
+        </Field>
+      </Box>
+    </>
+  );
+}
