@@ -21,6 +21,7 @@ export default {
       components: {
         Input: async () => import("./components/Input"), // Component qui va être appelé à l'affichage de la page d'édition de contenu
       },
+      // onChange: async(event)=>{console.log('change the ustom field HERE')}
     });
 
     // app.createSettingSection(

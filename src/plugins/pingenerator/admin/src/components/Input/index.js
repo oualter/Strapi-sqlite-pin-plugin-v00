@@ -1,4 +1,5 @@
-import { React, useState } from "react";
+import { React, useState, useRef, useEffect, useContext } from "react";
+import { CoordsContext } from "../../context/pinsCoords";
 import {
   Typography,
   DatePicker,
@@ -13,9 +14,34 @@ import ImagePlaceHolder from "./../ImagePlaceHolder";
 // import getTrad from "../../utils/getTrad";
 import "./../../assets/css/imagepin.css";
 
-export default function Input() {
-  const [date, setDate] = useState();
+
+const Input = ({children}) => {
+  let inputRef = useRef([]);
+
+  
+
+
+  const handleChange = (e) => {
+    console.log("handlechange !!!!!!!");
+    // onChange({
+    //   target: { name, type: attribute.type, value: e.currentTarget.value },
+    // });
+  };
+
+  // const [date, setDate] = useState();
+
+
   const [isVisible, setIsVisible] = useState(false);
+  const [inputData, setInputData] = useState([]);
+
+  const handleRegisterData = (dataCoords) => {
+    console.log("dataCoords => ", dataCoords);
+    setInputData(dataCoords);
+  };
+
+
+
+  
 
   return (
     <>
@@ -27,7 +53,17 @@ export default function Input() {
       })} */}
         Epingler sur la carte
       </Button>
-
+      <label>
+        Coordonnées de l'épingle
+        <input
+          ref={inputRef}
+          // name={name}
+          // disabled={disabled}
+          // value="cliquer sur la carte"
+          // required={required}
+          onChange={handleChange}
+        />
+      </label>
       {isVisible && (
         <ModalLayout
           onClose={() => setIsVisible((prev) => !prev)}
@@ -58,9 +94,17 @@ export default function Input() {
             endActions={
               <>
                 {/* <Button variant="secondary">Add new stuff</Button> */}
-                <Button onClick={() => setIsVisible((prev) => !prev)}>
-                  Enregistrer
-                </Button>
+                <CoordsContext.Provider value="toto">
+                  <Button
+                    onClick={() => {
+                      setIsVisible((prev) => !prev);
+                      // handleRegisterData();
+                      console.log("CoordsContext => ", CoordsContext);
+                    }}
+                  >
+                    Enregistrer
+                  </Button>
+                </CoordsContext.Provider>
               </>
             }
           />
@@ -68,4 +112,5 @@ export default function Input() {
       )}
     </>
   );
-}
+};
+export default Input;

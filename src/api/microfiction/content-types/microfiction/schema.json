@@ -5,12 +5,19 @@
     "singularName": "microfiction",
     "pluralName": "microfictions",
     "displayName": "microfiction",
-    "description": ""
+    "description": "une microfiction épinglée à un point sur la carte"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+      "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
   "attributes": {
     "Annee": {
       "type": "integer"

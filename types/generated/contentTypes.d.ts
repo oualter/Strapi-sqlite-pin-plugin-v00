@@ -938,10 +938,18 @@ export interface ApiMicrofictionMicrofiction extends Schema.CollectionType {
     singularName: 'microfiction';
     pluralName: 'microfictions';
     displayName: 'microfiction';
-    description: '';
+    description: 'une microfiction \u00E9pingl\u00E9e \u00E0 un point sur la carte';
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
   };
   attributes: {
     Annee: Attribute.Integer;
