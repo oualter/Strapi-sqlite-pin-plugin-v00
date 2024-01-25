@@ -1,23 +1,10 @@
-import { useState, useEffect, useContext } from "react";
-import { CoordsContext } from "../../context/pinsCoords";
+import { useState, useEffect } from "react";
 import mapImage from "./../../assets/img/croquis-reunion.png";
 import CoordsBox from "./../CoordBox";
 
-
- 
-
 // export default function ImagePlaceHolder() {
-const ImagePlaceHolder = ({children}) => {
+const ImagePlaceHolder = ({ handleRegisterData }) => {
   const [localCoords, setLocalCoords] = useState({ x: 0, y: 0 });
-
-  console.log("CoordsContext => ", CoordsContext);
-  // console.log("pinsCoords => ", pinsCoords);
-
-  // const handleChange = (e) => {
-  //   onChange({
-  //     target: { name, type: attribute.type, value: e.currentTarget.value },
-  //   });
-  // };
 
   // dimensions de l'épingle
   const pinWidth = 10;
@@ -42,10 +29,6 @@ const ImagePlaceHolder = ({children}) => {
   // objet épingle
   const [pins, setPins] = useState([]);
 
-  // useEffect(() => {
-  //   handleRegisterData(pins);
-  // }, [pins]);
-
   // objet coordonnées de l'épingle choisie
   const [XYPosBox, setXYPosBox] = useState([]);
 
@@ -66,28 +49,21 @@ const ImagePlaceHolder = ({children}) => {
     // setPins([...pins, newPin]);  // ok for a set of pins
     setPins([newPin]);
     // pinsCoords = newPin;
-    // if (pins[0]) {
-    //   handleRegisterData(pins);
-    //   console.log("nNEW  ewPin => ", pins);
-    // } else {
-    //   console.log('no data')
-    // }
+    if (xpos) {
+      handleRegisterData([{ x: xpos, y: ypos }]);
+    } else {
+      console.log("no data");
+    }
   };
   return (
     <>
       {localCoords[0] && (
         <p id="display-pos-box">
-          Position : {localCoords[0].x}, {localCoords[0].y}
+          Position souris : {localCoords[0].x}, {localCoords[0].y}
         </p>
       )}
-      {pins[0] && <CoordsBox xpos={pins[0].x} ypos={pins[0].y} />}
-      {pins[0] && <input type="text" value={pins[0].x + ", " + pins[0].y} />}
 
-      {pins[0] && (
-        <CoordsContext.provider value={pins[0].x}>
-          TEST :pins[0].x 
-          </CoordsContext.provider>
-      )}
+      {pins[0] && <p>Position épingle : {pins[0].x + ", " + pins[0].y}</p>}
 
       <div className="image-placeholder">
         <img

@@ -1,5 +1,4 @@
-import { React, useState, useRef, useEffect, useContext } from "react";
-import { CoordsContext } from "../../context/pinsCoords";
+import { useState, useRef, forwardRef } from "react";
 import {
   Typography,
   DatePicker,
@@ -10,38 +9,33 @@ import {
   ModalHeader,
   ModalFooter,
 } from "@strapi/design-system";
-import ImagePlaceHolder from "./../ImagePlaceHolder";
+import ImagePlaceHolder from "../ImagePlaceHolder";
 // import getTrad from "../../utils/getTrad";
 import "./../../assets/css/imagepin.css";
 
+const Input = ({ attribute, name, onChange, value }) => {  
+  const ref = useRef({ x: 0, y: 0 });
+  // const { formatMessage } = useIntl();
+  const [isVisible, setIsVisible] = useState(false);
+  const [pins, setPins] = useState(value ? value : []);
 
-const Input = ({children}) => {
-  let inputRef = useRef([]);
-
-  
-
-
-  const handleChange = (e) => {
-    console.log("handlechange !!!!!!!");
-    // onChange({
-    //   target: { name, type: attribute.type, value: e.currentTarget.value },
-    // });
+  const handleCoordsChange = (pins) => {
+    setPins(pins);
+    onChange({
+      target: {
+        name,
+        type: attribute.type,
+        value: pins,
+      },
+    });
   };
 
-  // const [date, setDate] = useState();
-
-
-  const [isVisible, setIsVisible] = useState(false);
-  const [inputData, setInputData] = useState([]);
 
   const handleRegisterData = (dataCoords) => {
-    console.log("dataCoords => ", dataCoords);
-    setInputData(dataCoords);
+    setPins(dataCoords);
+    ref.current.value = dataCoords[0].x + ", " + dataCoords[0].y;
+    handleCoordsChange(ref.current.value);
   };
-
-
-
-  
 
   return (
     <>
@@ -53,17 +47,34 @@ const Input = ({children}) => {
       })} */}
         Epingler sur la carte
       </Button>
+      {/* {inputData[0] && (
+        <label>
+          Coordonnées de l'épingle
+          <input
+            ref={ref}
+            name="pincoords"
+            // disabled={disabled}
+            value={inputData[0].x + ", " + inputData[0].y}
+            // required={required}
+            onInput={(e) => {
+              console.log("this => ", this);
+              handleChange(e);
+            }}
+            onChange={()=>handleChange}
+          />
+        </label>
+      )} */}
       <label>
         Coordonnées de l'épingle
         <input
-          ref={inputRef}
-          // name={name}
+          ref={ref}
+          name="pincoords"
           // disabled={disabled}
-          // value="cliquer sur la carte"
-          // required={required}
-          onChange={handleChange}
+          value={value}
+          onChange={handleCoordsChange}
         />
       </label>
+
       {isVisible && (
         <ModalLayout
           onClose={() => setIsVisible((prev) => !prev)}
@@ -80,7 +91,7 @@ const Input = ({children}) => {
             </Typography>
           </ModalHeader>
           <ModalBody>
-            <ImagePlaceHolder />
+            <ImagePlaceHolder handleRegisterData={handleRegisterData} />
           </ModalBody>
           <ModalFooter
             startActions={
@@ -94,17 +105,15 @@ const Input = ({children}) => {
             endActions={
               <>
                 {/* <Button variant="secondary">Add new stuff</Button> */}
-                <CoordsContext.Provider value="toto">
-                  <Button
-                    onClick={() => {
-                      setIsVisible((prev) => !prev);
-                      // handleRegisterData();
-                      console.log("CoordsContext => ", CoordsContext);
-                    }}
-                  >
-                    Enregistrer
-                  </Button>
-                </CoordsContext.Provider>
+                <Button
+                  onClick={() => {
+                    setIsVisible((prev) => !prev);
+                    // handleRegisterData();
+                    // console.log("CoordsContext => ", CoordsContext);
+                  }}
+                >
+                  Enregistrer
+                </Button>
               </>
             }
           />

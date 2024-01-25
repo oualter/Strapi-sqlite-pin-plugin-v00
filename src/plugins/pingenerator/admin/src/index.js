@@ -22,6 +22,62 @@ export default {
         Input: async () => import("./components/Input"), // Component qui va être appelé à l'affichage de la page d'édition de contenu
       },
       // onChange: async(event)=>{console.log('change the ustom field HERE')}
+      options: {
+        base: [
+          /*
+            Declare settings to be added to the "Base settings" section
+            of the field in the Content-Type Builder
+          */
+          {
+            sectionTitle: {
+              // Add a "Format" settings section
+              id: "pingenerator.pingenerator.section.format",
+              defaultMessage: "Format",
+            },
+            items: [
+              // Add settings items to the section
+              {
+                /*
+                  Add a "Color format" dropdown
+                  to choose between 2 different format options
+                  for the color value: hexadecimal or RGBA
+                */
+                intlLabel: {
+                  id: "pingenerator.pingenerator.format.label",
+                  defaultMessage: "pingenerator format",
+                },
+                name: "options.format",
+                type: "text",
+                value: "x,y", // option selected by default
+                options: [
+                  // List all available "Color format" options
+                  // {
+                  //   key: "hex",
+                  //   defaultValue: "hex",
+                  //   value: "hex",
+                  //   metadatas: {
+                  //     intlLabel: {
+                  //       id: "color-picker.color.format.hex",
+                  //       defaultMessage: "Hexadecimal",
+                  //     },
+                  //   },
+                  // },
+                  // {
+                  //   key: "rgba",
+                  //   value: "rgba",
+                  //   metadatas: {
+                  //     intlLabel: {
+                  //       id: "color-picker.color.format.rgba",
+                  //       defaultMessage: "RGBA",
+                  //     },
+                  //   },
+                  // },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     });
 
     // app.createSettingSection(
@@ -64,6 +120,7 @@ export default {
   bootstrap(app) {
       // execute some bootstrap code
       // app.injectContentManagerComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
+      console.log("app.customFields => ", app.customFields);
     },
 
   async registerTrads({ locales }) {
