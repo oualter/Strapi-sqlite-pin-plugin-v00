@@ -1,7 +1,12 @@
 'use strict';
 
-const myService = require('./my-service');
+// const configPingenerator = require('./config-service');
+// const configService = require('./config-service');
+const handleConfig = require("./handleConfig");
 
 module.exports = {
-  myService,
+  // configPingenerator,
+  // myService,
+  // configService,
+  handleConfig,
 };

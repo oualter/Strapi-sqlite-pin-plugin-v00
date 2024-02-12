@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "demo_settings",
+  "info": {
+    "singularName": "demo-setting",
+    "pluralName": "demo-settings",
+    "displayName": "demoSetting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
+  "attributes": {
+    "token": {
+      "type": "string"
+    }
+  }
+}

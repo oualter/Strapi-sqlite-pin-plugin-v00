@@ -1,0 +1,44 @@
+{
+  "name": "strapi-plugin-settings-demo",
+  "version": "0.0.0",
+  "description": "This is the description of the plugin.",
+  "strapi": {
+    "name": "settings-demo",
+    "description": "This plugin is a demo for how to use Strapi plugin configurations and settings.",
+    "kind": "plugin",
+    "displayName": "Settings Demo"
+  },
+  "dependencies": {
+    "@strapi/design-system": "^1.6.3",
+    "@strapi/helper-plugin": "^4.6.0",
+    "@strapi/icons": "^1.6.3",
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6"
+  },
+  "author": {
+    "name": "Alex Bennett",
+    "email": "info@alex-bennett.co.uk"
+  },
+  "maintainers": [
+    {
+      "name": "Alex Bennett",
+      "email": "info@alex-bennett.co.uk"
+    }
+  ],
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

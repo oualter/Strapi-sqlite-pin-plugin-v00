@@ -1,6 +1,10 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  default: {},
-  validator() {},
+  default: ({ env }) => ({
+    // token: "",
+    imageToPinOnUrl: "/assets/img/croquis-reunion.png",
+  }),
+
+  // validator() {},
 };

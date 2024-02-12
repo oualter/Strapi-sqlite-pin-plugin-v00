@@ -23,7 +23,16 @@ module.exports = {
   pingenerator: {
     enabled: true,
     resolve: "./src/plugins/pingenerator",
+    config: {
+      tada: true,
+      imageToPinOnUrl:
+        "./src/plugins/pingenerator/assets/img/croquis-reunion.png",
+    },
   },
+  // 'settings-demo': {
+  //   enabled: true,
+  //   resolve: './src/plugins/strapi-plugin-settings-demo',
+  // },
   upload: {
     config: {
       providerOptions: {
