@@ -4,7 +4,7 @@
   "info": {
     "singularName": "pingenerator-setting",
     "pluralName": "pingenerator-settings",
-    "displayName": "pingeneratorSetting"
+    "displayName": "Pingenerator Settings"
   },
   "options": {
     "draftAndPublish": true

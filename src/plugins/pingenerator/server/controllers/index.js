@@ -1,13 +1,15 @@
-'use strict';
+"use strict";
 
-// const myController = require('./my-controller');
+const myController = require('./my-controller');
 // const configController = require("./config-controller");
-const settingsController = require('./settings');
+// const pingeneratorController = require("./pingenerator-controller");
 // const pingeneratorContentType = require('./pingenerator-content-type')
+const pingen = require('./pingen')
 
 module.exports = {
-  // myController,
-  // pingeneratorContentType,
+  pingen,
+  myController,
+  // // pingeneratorContentType,
   // configController,
-  settingsController,
+  // pingeneratorController,
 };

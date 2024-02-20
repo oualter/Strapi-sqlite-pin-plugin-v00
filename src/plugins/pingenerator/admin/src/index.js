@@ -50,20 +50,35 @@ export default {
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
       icon: PluginIcon,
+      // name: "imageToPinOnUrl", // not working
+      // type: "string", // not working
       intlLabel: {
         id: `${pluginId}.plugin.name`,
         defaultMessage: "Pin-gen-narrator",
       },
       Component: async () => {
-        return import("./pages/Settings/Configuration");
+        const Configuration = await import("./pages/Settings/Configuration");
+        // return import("./pages/Settings/Configuration");
+        return Configuration;
+        // Input: async () => import("./components/Input"), // Component qui va être appelé à l'affichage de la page d'édition de contenu
       },
-      permissions: [], // array of permissions (object), allow a user to access a plugin depending on its permissions
+      // components: {
+      //   Configuration: async () => import("./pages/Settings/Configuration/index.js"),
+      // },
+      // permissions: [
+      //   { action: `plugin::${pluginId}.settingsSchema`, subject: null },
+      // ],
+      // permissions: [], // array of permissions (object), allow a user to access a plugin depending on its permissions
+    });
+    app.registerPlugin({
+      id: pluginId,
+      name,
     });
   },
   bootstrap(app) {
     // execute some bootstrap code
     // app.injectContentManagerComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
-    console.log("app.customFields => ", app.customFields);
+    // console.log("app.customFields => ", app.customFields);
   },
 
   async registerTrads({ locales }) {

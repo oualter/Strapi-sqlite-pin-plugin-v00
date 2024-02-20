@@ -13,7 +13,7 @@ import ImagePlaceHolder from "../ImagePlaceHolder";
 // import getTrad from "../../utils/getTrad";
 import "./../../assets/css/imagepin.css";
 
-const Input = ({ attribute, name, onChange, value }) => {  
+const Input = ({ attribute, name, onChange, value }) => { 
   const ref = useRef({ x: 0, y: 0 });
   // const { formatMessage } = useIntl();
   const [isVisible, setIsVisible] = useState(false);
@@ -29,6 +29,7 @@ const Input = ({ attribute, name, onChange, value }) => {
       },
     });
   };
+
 
 
   const handleRegisterData = (dataCoords) => {

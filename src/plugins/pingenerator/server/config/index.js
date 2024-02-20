@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  default: ({ env }) => ({
+  default: () => ({
     // token: "",
     imageToPinOnUrl: "/assets/img/croquis-reunion.png",
   }),
