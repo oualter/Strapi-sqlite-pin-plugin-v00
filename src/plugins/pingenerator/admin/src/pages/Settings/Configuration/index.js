@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, memo } from "react";
-import { AnErrorOccurred, CheckPagePermissions } from "@strapi/helper-plugin";
 import {
   Button,
   Box,
