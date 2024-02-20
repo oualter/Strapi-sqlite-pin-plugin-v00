@@ -10,11 +10,17 @@ module.exports = ({ strapi }) => ({
     //  async config()  {
     console.log("************* ROUTES GETCONFIG *************");
     // console.log("ctx => ", ctx);
-    let dataGet = await strapi.db
-      .query("plugin::pingenerator.pingenerator-setting")
-      .findOne({ select: ["imageToPinOnUrl"] });
-    console.log("||||| dataGet |||| => ", dataGet);
-    return ctx.request.url
+    let imageToPinOnUrlDB = await strapi.entityService.findOne(
+      "plugin::pingenerator.pingenerator-setting",
+      1,
+      {
+        fields: ["imageToPinOnUrl"],
+      }
+    );
+    if (imageToPinOnUrlDB) {
+      console.log("||||| imageToPinOnUrlDB |||| => ", imageToPinOnUrlDB);
+      return imageToPinOnUrlDB;
+    }
   },
   async setConfig(ctx) {
     console.log("************* ROUTES SETCONFIG!!!! ************* ");
@@ -22,30 +28,46 @@ module.exports = ({ strapi }) => ({
     // return ctx.request.url;
     let { imageToPinOnUrl } = ctx.request.body.data;
     console.log("{imageToPinOnUrl} => ", imageToPinOnUrl);
-    let dataPost = await strapi.entityService.findOne(
+    if (!imageToPinOnUrl) return;
+
+    let imageToPinOnUrlDB = await strapi.entityService.findOne(
       "plugin::pingenerator.pingenerator-setting",
       1,
       {
-        fields: ["imageToPinOnUrl"]
+        fields: ["imageToPinOnUrl"],
       }
     );
-    console.log("dataPost => ", dataPost);
+    console.log("imageToPinOnUrlDB => ", imageToPinOnUrlDB);
     // let dataPost = await strapi.db
     //   .query("plugin::pingenerator.pingenerator-setting")
     //   .findOne({ select: ["imageToPinOnUrl"] });
-      if (!dataPost) {
-        console.log("create api entity service !!!")
-        dataPost = await strapi.entityService.create(
-          "plugin::pingenerator.pingenerator-setting",
-          {
-            data: {
-              imageToPinOnUrl: "testUrl"
-            },
-          }
-        );
-      }
-    let dataPostTemp = dataPost ? dataPost : "defaultImgUrl";
-    return dataPostTemp;
+    if (!imageToPinOnUrlDB && imageToPinOnUrl) {
+      console.log("create api entity service !!!");
+      imageToPinOnUrlDB = await strapi.entityService.create(
+        "plugin::pingenerator.pingenerator-setting",
+        {
+          data: {
+            imageToPinOnUrl,
+          },
+        }
+      );
+    }
+    if (imageToPinOnUrlDB && imageToPinOnUrl) {
+      console.log("update api entity service !!!");
+      imageToPinOnUrlDB = await strapi.entityService.update(
+        "plugin::pingenerator.pingenerator-setting", 1,
+        {
+          data: {
+            imageToPinOnUrl,
+          },
+        }
+      );
+    }
+
+    // let imageToPinOnUrlTemp = imageToPinOnUrl
+    //   ? imageToPinOnUrl
+    //   : "https://monpetit20e.com/wp-content/uploads/2022/02/placedelareunion.jpg";
+    // return imageToPinOnUrlTemp;
     // console.log("||||| dataPost |||| => ", dataPost);
     // return strapi
     //   .plugin('pingenerator')
