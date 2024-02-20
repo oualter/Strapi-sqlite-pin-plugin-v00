@@ -68,9 +68,7 @@ const Configuration = () => {
   };
 
   const handleAssetsChange = (assets) => {
-    console.log("assets => ", assets);
     setSelectedAssets(assets);
-    console.log("selectedAssets => ", selectedAssets);
   };
 
   const handleChangeImageToPinOn = (asset) => {
@@ -78,17 +76,15 @@ const Configuration = () => {
     ref.current.value = asset.url;
   };
 
+  // TESTS de requêtes GET et POST
   const handleGet = async () => {
-    console.log("handleGet");
     const dataGet = await get(
       `/pingenerator/pass-data/get`
     ).then((response)=>{
-      console.log("handleGet response => ", response);
       return response
     });
   };
   const handlePost = async () => {
-    console.log("handlePost");
     const dataPost = await post(
       `/pingenerator/pass-data/post`,
       {
