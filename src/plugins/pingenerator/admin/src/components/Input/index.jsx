@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Typography,
   DatePicker,
@@ -24,6 +24,7 @@ const Input = ({ attribute, name, onChange, value }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [pins, setPins] = useState(value ? value : []);
   const [savedPins, setSavedPins] = useState([]);
+  const [postID, setPostID] = useState([]);
 
   const handleCoordsChange = async (pins) => {
     setPins(pins);
@@ -42,13 +43,21 @@ const Input = ({ attribute, name, onChange, value }) => {
     handleCoordsChange(ref.current.value);
   };
 
-  const handleGetPinCoords =  async() => {
+  const handleGetPinCoords = async () => {
     const pinsBridgeReq = await get("/pingenerator/pincoords").then((res) => {
-      let pinsBridgeData = res.data;
+      const { referrer } = res.data[res.data.length - 1];
+      const lastIndexOfSlashBeforeIdReferrer = referrer.lastIndexOf("/");
+      const tempPostID = referrer.slice(lastIndexOfSlashBeforeIdReferrer + 1);
+      setPostID(tempPostID);
+      const pinsBridgeData = res.data;
       setSavedPins(pinsBridgeData);
-      console.log('savedPins => ', savedPins)
     });
+    console.log("pinsBridgeReq => ", pinsBridgeReq);
   };
+  // handle asynchronous setstate thanks to useeffects
+  useEffect(() => {
+    handleGetPinCoords();
+  }, [isVisible]);
 
   return (
     <>
@@ -96,22 +105,32 @@ const Input = ({ attribute, name, onChange, value }) => {
             <div className="imageplaceholder-wrapper">
               <ImagePlaceHolder handleRegisterData={handleRegisterData} />
               {savedPins.map((pin, index) => {
-                const {pingenerator} = pin;
-                if (!pingenerator) {return true}
-                let savedPinX = pingenerator.split(',')[0];
-                let savedPinY = pingenerator.split(',')[1];
+                const { pingenerator } = pin;
+                const { id } = pin;
+                console.log("postID => ", postID);
+
+                if (!pingenerator) {
+                  return true;
+                }
+                let savedPinX = pingenerator.split(",")[0];
+                let savedPinY = pingenerator.split(",")[1];
                 return (
                   <div
-                    key={index}
-                    className="savedpin"
+                    key={id}
+                    className={
+                      id == postID ? "savedpin thispostpin" : "savedpin"
+                    }
                     style={{
                       width: "10px",
                       height: "10px",
-                      left:savedPinX+"%",
-                      top:savedPinY+"%",
+                      left: savedPinX + "%",
+                      top: savedPinY + "%",
                     }}
-                  ></div>
-                )})}
+                  >
+                    {id}
+                  </div>
+                );
+              })}
             </div>
           </ModalBody>
           <ModalFooter

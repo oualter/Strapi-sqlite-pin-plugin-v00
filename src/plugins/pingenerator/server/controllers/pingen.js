@@ -2,16 +2,29 @@
 module.exports = ({ strapi }) => ({
   async index(ctx) {
     console.log("************* ROUTES INDEX !!!! ***************");
+
     let pinCoordsEntries = await strapi.entityService.findMany(
       "api::microfiction.microfiction",
-      //   "plugin::pingenerator.pingenerator",
       {
         fields: ["pingenerator"],
       }
     );
-    console.log("pinCoordsEntries => ", pinCoordsEntries);
-    return pinCoordsEntries;
-},
+    // retourne les posts avec les coordonnées des épingles ET en dernier la valeur du referer
+    return [...pinCoordsEntries, { referrer: ctx.request.header.referer }];
+  },
+  async getMapImg(ctx) {
+    console.log("************* ROUTES getMapImg !!!! ***************");
+    let imageToPinOnUrlDB = await strapi.entityService.findOne(
+      "plugin::pingenerator.pingenerator-setting",
+      1,
+      {
+        fields: ["imageToPinOnUrl"],
+      }
+    );
+    if (imageToPinOnUrlDB) {
+      return imageToPinOnUrlDB;
+    }
+  },
   async getConfig(ctx) {
     // console.log("************* ROUTES GETCONFIG !!!! ***************");
 

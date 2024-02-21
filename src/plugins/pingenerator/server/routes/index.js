@@ -45,4 +45,18 @@ module.exports = {
       },
     ],
   },
+  mapimage: {
+    type: "admin",
+    routes: [
+      {
+        method: "GET",
+        path: "/mapimage",
+        handler: "pingen.getMapImg",
+        config: {
+          policies: [],
+          auth: false,
+        },
+      },
+    ],
+  },
 };
