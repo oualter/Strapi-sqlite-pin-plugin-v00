@@ -19,7 +19,7 @@ import {
   Loader,
   Typography,
 } from "@strapi/design-system";
-import { Check } from "@strapi/icons";
+import { Check, Landscape } from "@strapi/icons";
 import MediaLib from "../../../components/MediaLib/index.jsx";
 
 import pluginPermissions from "../../../permissions";
@@ -30,28 +30,22 @@ import { useFetchClient } from "@strapi/helper-plugin";
 const { settings } = pluginPermissions;
 
 const Configuration = () => {
-  const [imageToPinOnUrl, setImageToPinOnUrl] = useState("allo");
+  const [imageToPinOnUrl, setImageToPinOnUrl] = useState("");
   const ref = useRef(null);
 
   const [apiError, setApiError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
-  
 
   const { get, post } = useFetchClient();
 
   const handleSave = async () => {
     setIsLoading(true);
     try {
-
-      const dataPost = await post(
-        `/pingenerator/pass-data/post`,
-        {
-          data: {
-            imageToPinOnUrl: ref.current.src,
-          },
-        }
-      );
-
+      const dataPost = await post(`/pingenerator/pass-data/post`, {
+        data: {
+          imageToPinOnUrl: ref.current.src,
+        },
+      });
     } catch ({ message, response }) {
       setApiError(message);
     }
@@ -77,32 +71,29 @@ const Configuration = () => {
 
   // TESTS de requêtes GET et POST
   const handleGet = async () => {
-    const dataGet = await get(
-      `/pingenerator/pass-data/get`
-    ).then((response)=>{
-      return response
-    });
+    const dataGet = await get(`/pingenerator/pass-data/get`).then(
+      (response) => {
+        return response;
+      }
+    );
   };
   const handlePost = async () => {
-    const dataPost = await post(
-      `/pingenerator/pass-data/post`,
-      {
-        data: {
-          imageToPinOnUrl: ref.current.src,
-        },
-      }
-    ).then((response) => {
+    const dataPost = await post(`/pingenerator/pass-data/post`, {
+      data: {
+        imageToPinOnUrl: ref.current.src,
+      },
+    }).then((response) => {
       return response;
     });
   };
 
   useEffect(() => {
     pingeneratorRequests.getPingenconfig().then((res) => {
-      setImageToPinOnUrl(()=> res.data.imageToPinOnUrl);
+      setImageToPinOnUrl(() => res.data.imageToPinOnUrl);
     });
   }, [setSelectedAssets]);
 
-console.log("||||| CONTROL imageToPinOnUrl ||||| ", imageToPinOnUrl);
+  // console.log("||||| CONTROL imageToPinOnUrl ||||| ", imageToPinOnUrl);
 
   return (
     <>
@@ -115,6 +106,7 @@ console.log("||||| CONTROL imageToPinOnUrl ||||| ", imageToPinOnUrl);
             <Button
               startIcon={<Check />}
               onClick={handleSave}
+              disable={isLoading}
             >
               Save
             </Button>
@@ -130,7 +122,6 @@ console.log("||||| CONTROL imageToPinOnUrl ||||| ", imageToPinOnUrl);
         background="neutral0"
         shadow="filterShadow"
       >
-
         {/* {isLoading && (
           <Flex justifyContent="center">
             <Loader>Loading settings...</Loader>
@@ -148,47 +139,57 @@ console.log("||||| CONTROL imageToPinOnUrl ||||| ", imageToPinOnUrl);
         <ContentLayout>
           {/* <Button onClick={handleGet}>Test Get</Button>
           <Button onClick={handlePost}>Test Post</Button> */}
-
           <Field
             name="imgfile"
-            hint="Charger l'image sur laquelle les microfictions seront épinglées. L'image de la carte doit faire une largeur minimum de 1000px"
+            hint="L'image de la carte doit faire une largeur minimum de 1000px. Le format png est recommandé."
+            // error="Une erreur s'est produite. Recommencez"
             required={false}
           >
-            <button onClick={handleToggle}>
-              Changer l'image de la carte à épingler
-            </button>
-            <MediaLib
-              isOpen={isOpen}
-              onChange={(assets) => {
-                const imgToPin = assets[0];
-                handleAssetsChange(assets);
-                handleChangeImageToPinOn(imgToPin);
-              }}
-              onToggle={handleToggle}
-            />
-            {imageToPinOnUrl && (
-              <>
-                <FieldInput
-                  type="text"
-                  ref={ref}
-                  name="imageToPinOnUrl"
-                  value={imageToPinOnUrl}
-                />
-
-                <div>
-                  <img
+            <Flex direction="column" alignItems="flex-start" gap={3}>
+              <Button
+                variant="secondary"
+                endIcon={<Landscape />}
+                onClick={handleToggle}
+                size="L"
+                style={{ margin: "1rem 0 0"}}
+              >
+                Changer l'image de la carte à épingler
+              </Button>
+              <MediaLib
+                isOpen={isOpen}
+                onChange={(assets) => {
+                  const imgToPin = assets[0];
+                  handleAssetsChange(assets);
+                  handleChangeImageToPinOn(imgToPin);
+                }}
+                onToggle={handleToggle}
+              />
+              {imageToPinOnUrl && (
+                <>
+                  <FieldInput
+                    type="text"
                     ref={ref}
-                    src={imageToPinOnUrl}
-                    alt="*"
-                    width="100%"
-                    height="auto"
+                    name="imageToPinOnUrl"
+                    value={imageToPinOnUrl}
+                    style={{ width: "30rem", fontSize: "0.7rem" }}
+                    disabled="true"
                   />
-                </div>
-              </>
-            )}
 
+                  <div>
+                    <img
+                      ref={ref}
+                      src={imageToPinOnUrl}
+                      alt="*"
+                      width="auto"
+                      height="auto"
+                    />
+                  </div>
+                </>
+              )}
 
-            <FieldHint />
+              <FieldHint />
+              <FieldError />
+            </Flex>
           </Field>
         </ContentLayout>
         {/* </CheckPagePermissions> */}

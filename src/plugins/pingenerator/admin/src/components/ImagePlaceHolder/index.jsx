@@ -57,15 +57,18 @@ const ImagePlaceHolder = ({ handleRegisterData }) => {
   };
   return (
     <>
-      {localCoords[0] && (
-        <p id="display-pos-box">
-          Position souris : {localCoords[0].x}, {localCoords[0].y}
-        </p>
-      )}
-
-      {pins[0] && <p>Position épingle : {pins[0].x + ", " + pins[0].y}</p>}
-
       <div className="image-placeholder">
+        {localCoords[0] && (
+          <p className="display-pos mouse-pos">
+            Position souris : {localCoords[0].x}, {localCoords[0].y}
+          </p>
+        )}
+
+        {pins[0] && (
+          <p className="display-pos pin-pos">
+            Position épingle : {pins[0].x + ", " + pins[0].y}
+          </p>
+        )}
         <img
           src={mapImage}
           width="1000"

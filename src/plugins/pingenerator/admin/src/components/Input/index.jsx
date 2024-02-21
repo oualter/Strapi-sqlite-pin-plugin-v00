@@ -4,6 +4,9 @@ import {
   DatePicker,
   Box,
   Button,
+  Field,
+  FieldLabel,
+  FieldInput,
   ModalLayout,
   ModalBody,
   ModalHeader,
@@ -12,14 +15,17 @@ import {
 import ImagePlaceHolder from "../ImagePlaceHolder";
 // import getTrad from "../../utils/getTrad";
 import "./../../assets/css/imagepin.css";
+import { useFetchClient } from "@strapi/helper-plugin";
 
-const Input = ({ attribute, name, onChange, value }) => { 
+const Input = ({ attribute, name, onChange, value }) => {
+  const { get } = useFetchClient();
   const ref = useRef({ x: 0, y: 0 });
   // const { formatMessage } = useIntl();
   const [isVisible, setIsVisible] = useState(false);
   const [pins, setPins] = useState(value ? value : []);
+  const [savedPins, setSavedPins] = useState([]);
 
-  const handleCoordsChange = (pins) => {
+  const handleCoordsChange = async (pins) => {
     setPins(pins);
     onChange({
       target: {
@@ -30,17 +36,28 @@ const Input = ({ attribute, name, onChange, value }) => {
     });
   };
 
-
-
   const handleRegisterData = (dataCoords) => {
     setPins(dataCoords);
     ref.current.value = dataCoords[0].x + ", " + dataCoords[0].y;
     handleCoordsChange(ref.current.value);
   };
 
+  const handleGetPinCoords =  async() => {
+    const pinsBridgeReq = await get("/pingenerator/pincoords").then((res) => {
+      let pinsBridgeData = res.data;
+      setSavedPins(pinsBridgeData);
+      console.log('savedPins => ', savedPins)
+    });
+  };
+
   return (
     <>
-      <Button onClick={() => setIsVisible((prev) => !prev)}>
+      <Button
+        onClick={() => {
+          setIsVisible((prev) => !prev);
+          handleGetPinCoords();
+        }}
+      >
         {/* // formatMessage() est une fonction qui vient récupérer la clé de
       traduction et afficher le texte correpsondant
       {formatMessage({
@@ -48,34 +65,18 @@ const Input = ({ attribute, name, onChange, value }) => {
       })} */}
         Epingler sur la carte
       </Button>
-      {/* {inputData[0] && (
-        <label>
-          Coordonnées de l'épingle
-          <input
+      <Field name="pincoordsfield" required={false}>
+        <FieldLabel>
+          Coordonnées de l'épingle &nbsp;
+          <FieldInput
             ref={ref}
             name="pincoords"
             // disabled={disabled}
-            value={inputData[0].x + ", " + inputData[0].y}
-            // required={required}
-            onInput={(e) => {
-              console.log("this => ", this);
-              handleChange(e);
-            }}
-            onChange={()=>handleChange}
+            value={value}
+            onChange={handleCoordsChange}
           />
-        </label>
-      )} */}
-      <label>
-        Coordonnées de l'épingle
-        <input
-          ref={ref}
-          name="pincoords"
-          // disabled={disabled}
-          value={value}
-          onChange={handleCoordsChange}
-        />
-      </label>
-
+        </FieldLabel>
+      </Field>
       {isVisible && (
         <ModalLayout
           onClose={() => setIsVisible((prev) => !prev)}
@@ -92,7 +93,26 @@ const Input = ({ attribute, name, onChange, value }) => {
             </Typography>
           </ModalHeader>
           <ModalBody>
-            <ImagePlaceHolder handleRegisterData={handleRegisterData} />
+            <div className="imageplaceholder-wrapper">
+              <ImagePlaceHolder handleRegisterData={handleRegisterData} />
+              {savedPins.map((pin, index) => {
+                const {pingenerator} = pin;
+                if (!pingenerator) {return true}
+                let savedPinX = pingenerator.split(',')[0];
+                let savedPinY = pingenerator.split(',')[1];
+                return (
+                  <div
+                    key={index}
+                    className="savedpin"
+                    style={{
+                      width: "10px",
+                      height: "10px",
+                      left:savedPinX+"%",
+                      top:savedPinY+"%",
+                    }}
+                  ></div>
+                )})}
+            </div>
           </ModalBody>
           <ModalFooter
             startActions={

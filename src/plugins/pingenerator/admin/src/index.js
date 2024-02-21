@@ -19,66 +19,29 @@ export default {
       },
       icon: PluginIcon,
       components: {
-        Input: async () => import("./components/Input"), // Component qui va être appelé à l'affichage de la page d'édition de contenu
+        Input: async () => import("./components/Input"),
       },
-      // onChange: async(event)=>{console.log('change the ustom field HERE')}
     });
-
-    // app.createSettingSection(
-    //   {
-    //     id: pluginId,
-    //     intlLabel: {
-    //       id: `${pluginId}.plugin.name`,
-    //       defaultMessage: "Pin Generator",
-    //     },
-    //   },
-    //   [
-    //     {
-    //       intlLabel: {
-    //         id: `${pluginId}.plugin.page.configuration`,
-    //         defaultMessage: "Configuration",
-    //       },
-    //       id: "settings.configuration",
-    //       to: `/settings/${pluginId}/configuration`,
-    //       Component: async () => {
-    //         return import("./pages/Settings/Configuration");
-    //       },
-    //     },
-    //   ]
-    // );
 
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
       icon: PluginIcon,
-      // name: "imageToPinOnUrl", // not working
-      // type: "string", // not working
       intlLabel: {
         id: `${pluginId}.plugin.name`,
-        defaultMessage: "Pin-gen-narrator",
+        defaultMessage: "Pin Generator",
       },
       Component: async () => {
         const Configuration = await import("./pages/Settings/Configuration");
-        // return import("./pages/Settings/Configuration");
         return Configuration;
-        // Input: async () => import("./components/Input"), // Component qui va être appelé à l'affichage de la page d'édition de contenu
       },
-      // components: {
-      //   Configuration: async () => import("./pages/Settings/Configuration/index.js"),
-      // },
-      // permissions: [
-      //   { action: `plugin::${pluginId}.settingsSchema`, subject: null },
-      // ],
-      // permissions: [], // array of permissions (object), allow a user to access a plugin depending on its permissions
     });
+
     app.registerPlugin({
       id: pluginId,
       name,
     });
   },
   bootstrap(app) {
-    // execute some bootstrap code
-    // app.injectContentManagerComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
-    // console.log("app.customFields => ", app.customFields);
   },
 
   async registerTrads({ locales }) {

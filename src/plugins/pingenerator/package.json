@@ -1,10 +1,10 @@
 {
   "name": "pingenerator",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
     "name": "pingenerator",
-    "description": "Description of Pingenerator plugin",
+    "description": "Pin a point on the image map",
     "kind": "plugin",
     "displayName": "Pingenerator"
   },

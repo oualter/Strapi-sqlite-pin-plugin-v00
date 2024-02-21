@@ -13,9 +13,31 @@
   width: 100%;
   height: auto;
 }
-.pin{
+.pin, .savedpin {
   position: absolute;
   background-color:red;
   text-indent:-100000px;
   border-radius:50%;
+}
+.pin{
+  z-index:1000;
+}
+.savedpin {
+  background-color:rgba(0, 128, 0, 0.5);
+  cursor:no-drop; 
+}
+.display-pos{
+  position:fixed;
+  padding:0.4rem 0.5rem;
+  font-size:0.8rem;
+  background:rgba(255,255,255,0.8);
+}
+.pin-pos{
+  margin-left:530px
+}
+/* .tomap {
+  outline:5px solid green
+} */
+.imageplaceholder-wrapper{
+  position:relative;
 }
