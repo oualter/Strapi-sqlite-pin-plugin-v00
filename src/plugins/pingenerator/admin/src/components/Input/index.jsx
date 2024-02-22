@@ -12,7 +12,7 @@ import {
   ModalHeader,
   ModalFooter,
 } from "@strapi/design-system";
-import ImagePlaceHolder from "../ImagePlaceHolder";
+import MapImage from "./../MapImage";
 // import getTrad from "../../utils/getTrad";
 import "./../../assets/css/imagepin.css";
 import { useFetchClient } from "@strapi/helper-plugin";
@@ -67,11 +67,6 @@ const Input = ({ attribute, name, onChange, value }) => {
           handleGetPinCoords();
         }}
       >
-        {/* // formatMessage() est une fonction qui vient récupérer la clé de
-      traduction et afficher le texte correpsondant
-      {formatMessage({
-        id: getTrad("plugin.field.generator.button"),
-      })} */}
         Epingler sur la carte
       </Button>
       <Field name="pincoordsfield" required={false}>
@@ -103,12 +98,13 @@ const Input = ({ attribute, name, onChange, value }) => {
           </ModalHeader>
           <ModalBody>
             <div className="imageplaceholder-wrapper">
-              <ImagePlaceHolder handleRegisterData={handleRegisterData} />
+              <div className="image-placeholder">
+                <MapImage handleRegisterData={handleRegisterData} />
+              </div>
               {savedPins.map((pin, index) => {
                 const { pingenerator } = pin;
                 const { id } = pin;
-                console.log("postID => ", postID);
-
+                // console.log("postID => ", postID);
                 if (!pingenerator) {
                   return true;
                 }
@@ -127,7 +123,7 @@ const Input = ({ attribute, name, onChange, value }) => {
                       top: savedPinY + "%",
                     }}
                   >
-                    {id}
+                    {" "}
                   </div>
                 );
               })}
@@ -144,15 +140,12 @@ const Input = ({ attribute, name, onChange, value }) => {
             }
             endActions={
               <>
-                {/* <Button variant="secondary">Add new stuff</Button> */}
                 <Button
                   onClick={() => {
                     setIsVisible((prev) => !prev);
-                    // handleRegisterData();
-                    // console.log("CoordsContext => ", CoordsContext);
                   }}
                 >
-                  Enregistrer
+                  Valider le nouvel emplacement de l'épingle
                 </Button>
               </>
             }

@@ -78,18 +78,49 @@ export default function MapImage({ handleRegisterData }) {
 
   return (
     <>
-      {localCoords[0] && (
-        <p className="display-pos mouse-pos">
-          Position souris : {localCoords[0].x}, {localCoords[0].y}
-        </p>
-      )}
+      <div className="legend">
+        <div className="pin-legend-wrapper">
+          <div
+            className="pin"
+            style={{
+              width: pinWidth + "px",
+              height: pinHeight + "px",
+            }}
+          ></div>
+          <p>Nouvel emplacement de l'épingle</p>
+        </div>
+        <div className="pin-legend-wrapper">
+          <div
+            className="savedpin thispostpin"
+            style={{
+              width: pinWidth + "px",
+              height: pinHeight + "px",
+            }}
+          ></div>
+          <p>Vous êtes ici</p>
+        </div>
+        <div className="pin-legend-wrapper">
+          <div
+            className="savedpin"
+            style={{
+              width: pinWidth + "px",
+              height: pinHeight + "px",
+            }}
+          ></div>
+          <p>Autres épingles déjà ajoutées</p>
+        </div>
+        {localCoords[0] && (
+          <p className="display-pos">
+            Position souris : {localCoords[0].x}, {localCoords[0].y}
+          </p>
+        )}
 
-      {pins[0] && (
-        <p className="display-pos pin-pos">
-          Position épingle : {pins[0].x + ", " + pins[0].y}
-        </p>
-      )}
-
+        {pins[0] && (
+          <p className="display-pos">
+            Position épingle : {pins[0].x + ", " + pins[0].y}
+          </p>
+        )}
+      </div>
       <img
         src={mapImageSrc}
         width="1000"
@@ -98,7 +129,6 @@ export default function MapImage({ handleRegisterData }) {
         alt="basemap"
         onMouseMove={handleCalcXYCoords}
         onClick={handlePinOnMap}
-        // onClick={testClickOnComponent}
       />
 
       {pins.map((elt, index) => (
